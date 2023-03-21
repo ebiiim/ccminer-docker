@@ -53,6 +53,11 @@ spec:
           args:
             - -c
             - /config/config.json
+          livenessProbe:
+            tcpSocket:
+              port: 4068
+            initialDelaySeconds: 5
+            periodSeconds: 10
           resources:
             requests:
               cpu: 200m
