@@ -17,7 +17,7 @@ RUN mkdir /work
 WORKDIR /work
 RUN git clone https://github.com/tpruvot/ccminer.git
 WORKDIR /work/ccminer
-# version: Dec 13, 2022 (branch: linux)
+# version: Dec 13, 2020 (branch: linux)
 RUN git checkout 1eb8dc686cbd93bd1692a3ae1ca0840c9e6547e5
 
 # build
