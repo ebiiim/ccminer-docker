@@ -45,6 +45,7 @@ WORKDIR /work
 # add bin
 COPY --from=0 /work/ccminer/ccminer ./
 
-ENTRYPOINT ["./ccminer"]
+EXPOSE 4068
+ENTRYPOINT ["./ccminer", "-b", "0.0.0.0:4068"]
 
 LABEL maintainer "Shunsuke Ise <ise@ebiiim.com>"
