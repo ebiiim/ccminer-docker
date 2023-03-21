@@ -1,5 +1,10 @@
 # ccminer-docker
 
+[![GitHub](https://img.shields.io/github/license/ebiiim/ccminer-docker)](https://github.com/ebiiim/ccminer-docker/blob/main/LICENSE)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/ebiiim/ccminer-docker)](https://github.com/ebiiim/ccminer-docker/releases/latest)
+[![Release](https://github.com/ebiiim/ccminer-docker/actions/workflows/release.yaml/badge.svg)](https://github.com/ebiiim/ccminer-docker/actions/workflows/release.yaml)
+
+
 Yet another Docker image for [tpruvot/ccminer](https://github.com/tpruvot/ccminer) with Kubernetes support.
 
 ## Usage
