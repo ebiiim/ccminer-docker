@@ -18,6 +18,8 @@ spec:
       labels:
         app: ccminer
     spec:
+      nodeSelector:
+        nvidia.com/gpu.present: "true"
       initContainers:
         - name: init-config
           image: busybox:1
