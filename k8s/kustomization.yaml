@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+images:
+  - name: ccminer
+    newName: ghcr.io/ebiiim/ccminer
+    newTag: v1.0.0
+
+namespace: ccminer
+
+namePrefix: ""
+nameSuffix: ""
+
+resources:
+  # ccminer DaemonSet with empty ConfigMap
+  - https://raw.githubusercontent.com/ebiiim/ccminer-docker/v1.0.0/k8s/ccminer.yaml
+
+patchesStrategicMerge:
+  # [ConfigMap] Put your config.json here. {{hostname}} will be replaced with the hostname of the Node.
+  - |-
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: ccminer-config
+    data:
+      config.json: |-
+        {
+          "algo": "lyra2v2",
+          "url": "stratum+tcp://hoge.example.com:9200",
+          "user": "hoge.ccminer-{{hostname}}",
+          "pass": "hoge"
+        }

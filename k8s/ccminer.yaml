@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ccminer-config
+data:
+  config.json: "{}"
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ccminer
+spec:
+  selector:
+    matchLabels:
+      app: ccminer
+  template:
+    metadata:
+      labels:
+        app: ccminer
+    spec:
+      initContainers:
+        - name: init-config
+          image: busybox:1
+          volumeMounts:
+            - mountPath: /config-tmpl
+              name: config-tmpl
+            - mountPath: /config
+              name: config
+          env:
+            - name: K8S_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          command: ["/bin/sh"]
+          args:
+            - -c
+            - |
+              echo "set config" \
+              && chmod -v -R 777 /config \
+              && cp -v /config-tmpl/config.json /config/config.json \
+              && sed -i -e "s/{{hostname}}/$K8S_NODE_NAME/g" /config/config.json
+      containers:
+        - name: ccminer
+          image: ccminer
+          volumeMounts:
+            - mountPath: /config
+              name: config
+          ports:
+            - name: api
+              containerPort: 4068
+          args:
+            - -c
+            - /config/config.json
+          resources:
+            requests:
+              cpu: 200m
+              memory: 200Mi
+              nvidia.com/gpu: "1"
+            limits:
+              cpu: 400m
+              memory: 400Mi
+              nvidia.com/gpu: "1"
+      volumes:
+        - name: config-tmpl
+          configMap:
+            name: ccminer-config
+        - name: config
+          emptyDir: {}
