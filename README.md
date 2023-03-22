@@ -33,6 +33,8 @@ docker run --rm --gpus all \
 
 ## Kubernetes
 
+This manifest runs ccminer Pods as a DaemonSet on GPU nodes.
+
 ### Deploy with Kustomize
 
 > 💡 Please make sure GPUs are enabled on your cluster.
@@ -75,7 +77,7 @@ kubectl apply -k kustomization.yaml
 
 ## Changelog
 
-**1.0.0 - 2023-03-??**
+**1.0.0 - 2023-03-23**
 
 - initial release
 - tpruvot/ccminer: [1eb8dc686cbd93bd1692a3ae1ca0840c9e6547e5](https://github.com/tpruvot/ccminer/tree/1eb8dc686cbd93bd1692a3ae1ca0840c9e6547e5) 2020-12-13
